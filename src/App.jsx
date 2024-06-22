@@ -4,31 +4,39 @@ import "./App.css";
 import All from "./all";
 import Completed from "./completed";
 import Active from "./active";
-import { v4 } from 'uuid'
+import { v4 } from "uuid";
 
 function App() {
-  const [task, setTask] = useState('')
-  const [taskList, setTaskList] = useState(() => {
-    const storageTask = JSON.parse(localStorage.getItem('tasks'))
+  const [task, setTask] = useState("");
+  const [taskList, setTaskList] = useState([]);
 
-    return storageTask
-  });
+  // useEffect(() => {
+  //   const storageTaskList = localStorage.getItem('tasks');
+  //   if(storageTaskList){
+  //     // setTaskList(JSON.parse(storageTaskList))
+  //   }
+  // })
 
-  useEffect(()=>{
-    localStorage.setItem('tasks', JSON.stringify(taskList))
-  })
-  const newTask = JSON.stringify(taskList)
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
+
+  const newTask = JSON.stringify(taskList);
+
   const handleSubmit = () => {
-    setTaskList([...taskList, {id: v4(),task: task, done: false}]);
-    setTask('')
-  }
+    setTaskList([...taskList, { id: v4(), task: task, done: false }]);
+    setTask("");
+  };
+
   const handleChange = (e) => {
-    setTask(e.target.value)
-  }
+    setTask(e.target.value);
+  };
 
   const onCheckboxChange = useCallback((id) => {
-    setTaskList(prevState => prevState.map((todo) => todo.id === id ? {...todo, done: true} : todo))
-  })
+    setTaskList((prevState) =>
+      prevState.map((todo) => (todo.id === id ? { ...todo, done: true } : todo))
+    );
+  }, []);
 
   return (
     <>
@@ -70,9 +78,42 @@ function App() {
         </div>
         <div className="body center">
           <Routes>
-            <Route path="/" element={<All taskList={taskList} handleSubmit ={handleSubmit} handleChange = {handleChange} onCheckboxChange={onCheckboxChange}/>} />
-            <Route path="/Active" element={<Active task={task} taskList={taskList} handleSubmit ={handleSubmit} handleChange = {handleChange}/>} />
-            <Route path="/Completed" element={<Completed />} />
+            <Route
+              path="/"
+              element={
+                <All
+                  task={task}
+                  taskList={taskList}
+                  handleSubmit={handleSubmit}
+                  handleChange={handleChange}
+                  onCheckboxChange={onCheckboxChange}
+                />
+              }
+            />
+            <Route
+              path="/Active"
+              element={
+                <Active
+                  task={task}
+                  taskList={taskList}
+                  handleSubmit={handleSubmit}
+                  handleChange={handleChange}
+                  onCheckboxChange={onCheckboxChange}
+                />
+              }
+            />
+            <Route
+              path="/Completed"
+              element={
+                <Completed
+                  task={task}
+                  taskList={taskList}
+                  handleSubmit={handleSubmit}
+                  handleChange={handleChange}
+                  onCheckboxChange={onCheckboxChange}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>

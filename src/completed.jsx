@@ -1,24 +1,19 @@
 import { useState } from "react";
+import ItemTask from "./itemTask";
 
 const Completed = (props) => {
-    return(
-        <>
-        <ul className="toDoList">
-            <li className="listItem">
-                <input type="checkbox" name="" defaultChecked={true}/> 
-                <label className="checke">Do code challenge</label>
-            </li>
-            <li className="listItem">
-                <input type="checkbox" name="" defaultChecked={true}/> 
-                <label className="checke">Do code challenge</label>
-            </li>
-            <li className="listItem">
-                <input type="checkbox" name="" defaultChecked={true}/> 
-                <label className="checke">Do code challenge</label>
-            </li>
-        </ul>
-        </>
-    )
-}
+  return (
+    <>
+      <ul className="toDoList">
+        {/* {console.log(props.taskList)} */}
+        {props.taskList.map((task) =>
+          task.done == true ? (
+            <ItemTask task={task} onCheckboxChange={props.onCheckboxChange} />
+          ) : null
+        )}
+      </ul>
+    </>
+  );
+};
 
-export default Completed
+export default Completed;

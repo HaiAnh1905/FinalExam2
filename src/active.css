@@ -1,0 +1,28 @@
+.toDoList .listItem {
+    display: flex;
+    gap: 16px ;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.toDoList {
+    margin-top: 15px;
+}
+.inputTast {
+    width: 460px;
+    height: 40px;
+    border: #e7e7e7;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+.addItem {
+    border-radius: 5px;
+    height: 40px;
+    width: 70px;
+    border: none;
+    color: white;
+    background-color: #0084F5;
+    margin-left: 14px;
+}
+.checke{
+    text-decoration:line-through;
+}

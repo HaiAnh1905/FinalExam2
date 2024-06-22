@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./active.css"
+import ItemTask from "./itemTask";
 
 const Active = (props) => {
   return (
@@ -14,12 +16,10 @@ const Active = (props) => {
         Add
       </button>
       <ul className="toDoList">
-        {props.taskList.map((task, index) => (
-          <li key={index} className="listItem">
-            <input type="checkbox" name="" />
-            <label>{task}</label>
-          </li>
-        ))}
+        {/* {console.log(props.taskList)} */}
+        {props.taskList.map((task) => task.done == false ? (<ItemTask task = {task} onCheckboxChange={props.onCheckboxChange}/>) : null
+        )}
+        
       </ul>
     </>
   );
